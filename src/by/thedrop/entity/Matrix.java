@@ -10,33 +10,33 @@ import java.util.List;
  */
 public class Matrix {
 
-    private int matrixSize;
+    private int matrixWidth;
+    private int matrixHeight;
     private double[][] matrixArray;
 
-    public Matrix(int matrixSize, double[][] matrixArray) {
-        this.matrixSize = matrixSize;
+    public Matrix(int matrixWidth, int matrixHeight, double[][] matrixArray) {
+        this.matrixWidth = matrixWidth;
+        this.matrixHeight = matrixHeight;
         this.matrixArray = matrixArray;
     }
 
     public Matrix(File file) throws Exception {
         List<String> stringList = Reader.readListFromFile(file);
-        this.matrixSize = Reader.matrixSize;
+        this.matrixWidth = Reader.matrixWidth;
+        this.matrixHeight = Reader.matrixHeight;
         this.matrixArray = Reader.readArrayFromList(stringList);
     }
 
 
-    public  void print() {
-        for (int i = 0; i < matrixSize; i++) {
-            for (int j = 0; j < matrixSize; j++) {
-                System.out.print(matrixArray[i][j] + "\t");
+    public void print() {
+        for (int i = 0; i < matrixHeight; i++) {
+            for (int j = 0; j < matrixWidth; j++) {
+                System.out.print(String.format("%-7s" , matrixArray[i][j]));
             }
             System.out.println();
         }
     }
 
-    public int getSize() {
-        return matrixSize;
-    }
 
     public double[][] getArray() {
         return matrixArray;
@@ -44,5 +44,13 @@ public class Matrix {
 
     public double getElement(int i, int j) {
         return matrixArray[i][j];
+    }
+
+    public int getMatrixWidth() {
+        return matrixWidth;
+    }
+
+    public int getMatrixHeight() {
+        return matrixHeight;
     }
 }

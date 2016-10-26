@@ -2,7 +2,6 @@ package by.thedrop.reader;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +11,11 @@ import java.util.List;
  */
 public class Reader {
 
-    public static int matrixSize;
+    public static int matrixWidth;
+    public static int matrixHeight;
 
-    public Reader(){
+    public Reader() {
+
     }
 
     public static List<String> readListFromFile(File file) throws Exception {
@@ -24,22 +25,19 @@ public class Reader {
         while ((tempString = br.readLine()) != null) {
             inputList.add(tempString);
         }
-        if (inputList.size() != inputList.get(0).split(" ").length) {
-            throw new Exception("Matrix not square!");
-        } else {
-            matrixSize = inputList.size();
-        }
+        matrixWidth = inputList.get(1).split(" ").length;
+        matrixHeight = inputList.size();
         return inputList;
     }
 
-    public static double[][] readArrayFromList(List<String> list){
-        String[][] arrayStr = new String[matrixSize][matrixSize];
-        double[][] array = new double[matrixSize][matrixSize];
-        for (int i = 0; i < matrixSize; i++) {
+    public static double[][] readArrayFromList(List<String> list) {
+        String[][] arrayStr = new String[matrixHeight][matrixWidth];
+        double[][] array = new double[matrixHeight][matrixWidth];
+        for (int i = 0; i < matrixHeight; i++) {
             arrayStr[i] = list.get(i).split(" ");
         }
-        for (int i = 0; i < matrixSize; i++) {
-            for (int j = 0; j < matrixSize; j++) {
+        for (int i = 0; i < matrixHeight; i++) {
+            for (int j = 0; j < matrixWidth; j++) {
                 array[i][j] = Double.parseDouble(arrayStr[i][j]);
             }
         }
