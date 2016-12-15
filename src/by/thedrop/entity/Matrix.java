@@ -19,10 +19,17 @@ public class Matrix {
         this.matrixHeight = matrixHeight;
         this.matrixArray = matrixArray;
     }
-    public Matrix(Matrix matrix){
+
+    public Matrix(Matrix matrix) {
         this.matrixWidth = matrix.matrixWidth;
         this.matrixHeight = matrix.matrixHeight;
         this.matrixArray = matrix.matrixArray;
+    }
+
+    public Matrix(double[][] matrixArray) {
+        this.matrixArray = matrixArray;
+        this.matrixHeight = matrixArray.length;
+        this.matrixWidth = matrixArray.length;
     }
 
     public Matrix(File file) throws Exception {
@@ -36,7 +43,9 @@ public class Matrix {
     public void print() {
         for (int i = 0; i < matrixHeight; i++) {
             for (int j = 0; j < matrixWidth; j++) {
-                System.out.print(String.format("%-7s" , matrixArray[i][j]));
+                int a = (int) (matrixArray[i][j] * 100);
+                matrixArray[i][j] = (double) a / 100;
+                System.out.print(String.format("%-7s", matrixArray[i][j]) + " ");
             }
             System.out.println();
         }
@@ -47,8 +56,23 @@ public class Matrix {
         return matrixArray;
     }
 
-    public double[] getLine(int i){
-        return matrixArray[i];
+    public double[][] getSubArray() {
+        int min = Math.min(matrixHeight, matrixWidth);
+        double[][] array = new double[min][min];
+        for (int i = 0; i < min; i++) {
+            for (int j = 0; j < min; j++) {
+                array[i][j] = matrixArray[i][j];
+            }
+        }
+        return array;
+    }
+
+    public double[] getLine(int i) {
+        double[] array = new double[matrixWidth];
+        for (int j = 0; j < array.length; j++) {
+            array[j] = matrixArray[i][j];
+        }
+        return array;
     }
 
     public double getElement(int i, int j) {
